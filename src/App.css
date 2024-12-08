@@ -1,0 +1,33 @@
+#root{
+    height: 100vh;
+}
+
+.env-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .env-name-wrapper {
+    position: relative; /* Ensures that the .icon-container positioning is relative to this */
+  }
+  
+  .icon-container {
+    display: none; /* Hidden by default */
+    position: absolute;
+    left: 100%; /* Adjust if necessary to position next to the env-name-wrapper */
+    top: 0; /* Align icons with the top of the env-name-wrapper */
+    margin-left: 10px; /* Space between the text and the icons */
+    display: flex;
+    align-items: center;
+  }
+  
+  .env-container:hover .icon-container {
+    display: flex; /* Show icons when hovering over the .env-container */
+  }
+  
+  .icon-item {
+    margin-left: 10px; /* Space between icons */
+  }
+  
