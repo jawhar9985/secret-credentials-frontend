@@ -1,6 +1,6 @@
-import { useState, ChangeEvent, MouseEvent } from 'react';
+import { useState, MouseEvent } from 'react';
 import axios from 'axios';
-import { Button, Row, Input, Text, Col } from '@piximind/ds-p-23';
+import { Button, Input, Text, Col } from '@piximind/ds-p-23';
 import '@piximind/ds-p-23/lib/main.css';
 import { useForm } from '@piximind/custom-hook';
 
@@ -21,9 +21,9 @@ function Resetpassword() {
                 key: 'email'
             }
         ]
-    }) as IUseFormResult;
+    });
 
-    const { state, onChange, onValidForm, isFormValid, onReset } = form;
+    const { state, onChange, isFormValid } = form;
 
     const handlePasswordReset = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -47,41 +47,32 @@ function Resetpassword() {
     };
 
     return (
-        <Col className=''>
-            <Text
-                text="Reset Password"
-                type="type-4"
-                className='ds-flex ds-flex-col ds-center ds-text-primary ds-pt-50 ds-pl-60'
-            />
-            <Col className="ds-pb-10">
+        <div className='ds-w-100 ds-h-100 ds-flex-col ds-center'>
+            <Text text="Reset Password" type="type-4" className='ds-flex ds-flex-col ds-center ds-text-primary' />
+            <div style={{ width: '400px' }} className='ds-box-shadow1 ds-bg-white ds-p-12 ds-borad-20'>
                 <Input
                     type="text"
-                    inputSize='large'
+                    inputSize="large"
                     placeholder="email"
                     className="ds-box-shadow3 ds-bg-neutral100"
                     listIcons={[{ icon: "mail", isLeft: true, color: "#79c300", size: 25 }]}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange({ key: 'email', value: e.target.value })}
+                    onChange={(e) => onChange({ key: 'email', value: e.target.value })}
                     value={state.email?.value as string}
                     isInvalid={state.email?.isInvalid}
                     isValid={state.email?.isValid}
                     error={state.email?.errorMessage}
                     errorClassName='ds-text-error800'
+                    containerClassName='ds-my-20'
                 />
-            </Col>
-            <Col>
                 {error && <Text className='ds-text-error600' text={error} />}
                 {message && <Text className='ds-text-success800' text={message} />}
-            </Col>
-            <Col>
-                <Row className="ds-p-15">
-                    <Button
-                        text="Reset password"
-                        className='ds-mr-10'
-                        onClick={handlePasswordReset}
-                    />
-                </Row>
-            </Col>
-        </Col>
+                <Button
+                    text="Reset Password"
+                    className='ds-my-8 ds-w-100'
+                    onClick={handlePasswordReset}
+                />
+            </div>
+        </div>
     );
 }
 

@@ -1,6 +1,6 @@
-import React, { useState, ChangeEvent, MouseEvent } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import axios from 'axios';
-import { Button, Row, Input, Text, Col } from '@piximind/ds-p-23';
+import { Button, Input, Text, Col } from '@piximind/ds-p-23';
 import '@piximind/ds-p-23/lib/main.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from '@piximind/custom-hook';
@@ -26,9 +26,9 @@ function Confirmresetpassword() {
                 key: 'password'
             }
         ]
-    }) as IUseFormResult;
+    });
 
-    const { state, onChange, onValidForm, isFormValid, onReset } = form;
+    const { state, onChange, isFormValid } = form;
 
     const handlePasswordReset = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -48,46 +48,37 @@ function Confirmresetpassword() {
                 setError(error.response?.data?.message || 'An error occurred');
             }
         } else {
-            setError('Form is invalid');
+            setError('Please enter a valid password.');
         }
     };
 
     return (
-        <Col className='ds-w-20 ds-bg-neutral200 ds-borad-20 ds-mt-200 ds-ml-200'>
-            <Text
-                text="Set a new password"
-                type="type-4"
-                className='ds-text-primary ds-pt-50 ds-pl-80'
-            />
-            <Col className="ds-pb-10">
+        <div className='ds-w-100 ds-h-100 ds-flex-col ds-center'>
+            <Text text="Set a New Password" type="type-4" className='ds-flex ds-flex-col ds-center ds-text-primary' />
+            <div style={{ width: '400px' }} className='ds-box-shadow1 ds-bg-white ds-p-12 ds-borad-20'>
                 <Input
                     type="password"
                     inputSize="large"
                     placeholder="New password"
                     className="ds-box-shadow3 ds-bg-neutral100"
                     listIcons={[{ icon: "key", isLeft: true, color: "#79c300", size: 25 }]}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => onChange({ key: 'password', value: e.target.value })}
+                    onChange={(e) => onChange({ key: 'password', value: e.target.value })}
                     value={state.password?.value as string}
                     isInvalid={state.password?.isInvalid}
                     isValid={state.password?.isValid}
                     error={state.password?.errorMessage}
                     errorClassName='ds-text-error800'
+                    containerClassName='ds-my-20'
                 />
-            </Col>
-            <Col>
                 {error && <Text className='ds-text-error600' text={error} />}
                 {message && <Text className='ds-text-success800' text={message} />}
-            </Col>
-            <Col>
-                <Row className="ds-p-15">
-                    <Button
-                        text="Confirm new password"
-                        className='ds-mr-10'
-                        onClick={handlePasswordReset}
-                    />
-                </Row>
-            </Col>
-        </Col>
+                <Button
+                    text="Confirm New Password"
+                    className='ds-my-8 ds-w-100'
+                    onClick={handlePasswordReset}
+                />
+            </div>
+        </div>
     );
 }
 
